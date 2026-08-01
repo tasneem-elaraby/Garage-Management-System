@@ -44,8 +44,3 @@ The system has two types of vehicles: Racer and Support Vehicle. It also uses JS
 ```bash
 python main.py
 ```
-
-
-- Number of cars in each team.
-
-The performance score is calculated using the `calculate_score()` method. Racer and SupportVehicle have different implementations of this method.
