@@ -147,3 +147,97 @@ def load():
                 saved_car["reliability"]
             )
         garage.append(car)
+
+##gui part using Tkinter
+# check in
+def check_in():
+    window = Toplevel(login_window)
+    window.title("Check in")
+    Label(window, text="Select Type").pack()
+    Button(window, text="Racer", command=add_racer).pack()
+    Button(window, text="Support Vehicle", command=add_support).pack()
+
+# check in for racer
+def add_racer():
+    window = Toplevel(login_window)
+    window.title("Add Racer")
+    Label(window, text="Car Number").pack()
+    number = Entry(window)
+    number.pack()
+    Label(window, text="Full Name").pack()
+    name = Entry(window)
+    name.pack()
+    Label(window, text="Age").pack()
+    age = Entry(window)
+    age.pack()
+    Label(window, text="Team").pack()
+    team = Entry(window)
+    team.pack()
+    Label(window, text="Speed").pack()
+    speed = Entry(window)
+    speed.pack()
+    Label(window, text="Capacity").pack()
+    capacity = Entry(window)
+    capacity.pack()
+    Label(window, text="Races").pack()
+    races = Entry(window)
+    races.pack()
+    Label(window, text="Laps").pack()
+    laps = Entry(window)
+    laps.pack()
+    message = Label(window, text="")
+    message.pack()
+
+    def add():  #check if car no is repeated if not make an object
+        for car in garage:
+            if car.get_car_number() == number.get():
+                message["text"] = "Car nmber exist"
+                return
+   #convert from string to int
+        car = Racer(number.get(), name.get(), int(age.get()), team.get(),int(speed.get()), int(capacity.get()),int(races.get()), int(laps.get()))
+        garage.append(car)
+        save()
+        message["text"] = "racer is added"
+    Button(window, text="Add", command=add).pack()
+
+#same for support vehicle
+def add_support():
+    window = Toplevel(login_window)
+    window.title("Add Support Vehicle")
+    Label(window, text="Car Number").pack()
+    number = Entry(window)
+    number.pack()
+    Label(window, text="Full Name").pack()
+    name =Entry(window)
+    name.pack()
+    Label(window, text="Age").pack()
+    age =Entry(window)
+    age.pack()
+    Label(window, text="Team").pack()
+    team = Entry(window)
+    team.pack()
+    Label(window, text="Speed").pack()
+    speed =Entry(window)
+    speed.pack()
+    Label(window, text="Capacity").pack()
+    capacity = Entry(window)
+    capacity.pack()
+    Label(window,text="Crew Size").pack()
+    crew = Entry(window)
+    crew.pack()
+    Label(window, text="Reliability").pack()
+    reliability = Entry(window)
+    reliability.pack()
+    message = Label(window, text="")
+    message.pack()
+
+    def add():
+        for car in garage:
+            if car.get_car_number() == number.get():
+                message["text"] = "Car number exists"
+                return
+        car = SupportVehicle(number.get(), name.get(), int(age.get()), team.get(), int(speed.get()), int(capacity.get()),int(crew.get()), int(reliability.get()))
+        garage.append(car)
+        save()
+        message["text"] = "Support Vehicle added"
+    Button(window, text="Add", command=add).pack()
