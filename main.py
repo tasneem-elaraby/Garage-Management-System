@@ -241,3 +241,51 @@ def add_support():
         save()
         message["text"] = "Support Vehicle added"
     Button(window, text="Add", command=add).pack()
+    
+# view garage panel
+def view_garage():
+    window = Toplevel(login_window)
+    window.title("view garage")
+    cars_list = Listbox(window, width=40)
+    cars_list.pack()
+    for car in garage:
+        cars_list.insert(END, car.display_info())
+
+# search and tune up
+def tune_up():
+    window = Toplevel(login_window)
+    window.title("Search & tune up")
+    Label(window, text="Car number").pack()
+    search = Entry(window)
+    search.pack()
+    results = Listbox(window, width=40)
+    results.pack()
+    Label(window, text="New Speed").pack()
+    speed = Entry(window)
+    speed.pack()
+    Label(window, text="New Capacity").pack()
+    capacity = Entry(window)
+    capacity.pack()
+    message = Label(window, text="")
+    message.pack()
+
+    def find():
+        for car in garage:
+            if car.get_car_number() == search.get():
+                results.insert(END, car.display_info())
+                return
+        results.insert(END, "Car not found")
+
+    def update():
+        for car in garage:
+            if car.get_car_number() == search.get():
+                car.set_speed(int(speed.get()))
+                car.set_capacity(int(capacity.get()))
+                save()
+                message["text"] = "Car updated"
+                return
+
+        message["text"] = "Car isnot found"
+
+    Button(window, text="Search", command=find).pack()
+    Button(window, text="Update", command=update).pack()
