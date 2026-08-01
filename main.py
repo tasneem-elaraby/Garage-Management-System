@@ -98,3 +98,52 @@ class SupportVehicle(Car):
         info = self.get_car_number() + " - " + self.get_full_name() + " - Support"
         return info
 
+garage = []  #for storing car objets
+def save():
+    cars_data = [] #storing for json file
+    for car in garage:
+        car_data = {
+            "car_number": car.get_car_number(),
+            "full_name": car.get_full_name(),
+            "age": car.get_age(),
+            "team": car.get_team(),
+            "speed": car.get_speed(),
+            "capacity": car.get_capacity()
+        }
+        if car.get_type() == "Racer":
+            car_data["type"] = "Racer"
+            car_data["races"] = car.get_races()
+            car_data["laps"] = car.get_laps()
+        else:
+            car_data["type"] = "Support"
+            car_data["crew"] = car.get_crew_size()
+            car_data["reliability"] = car.get_reliability()
+
+        cars_data.append(car_data)
+    with open("cars.json", "w") as file:
+        json.dump(cars_data, file)
+
+
+def load():
+    with open("cars.json", "r") as file:
+        cars_data = json.load(file)
+
+    for saved_car in cars_data:
+        if saved_car["type"] == "Racer":
+            car = Racer(saved_car["car_number"], saved_car["full_name"], saved_car["age"], saved_car["team"], saved_car["speed"],
+                saved_car["capacity"],
+                saved_car["races"],
+                saved_car["laps"]
+            )
+        else:
+            car = SupportVehicle(
+                saved_car["car_number"],
+                saved_car["full_name"],
+                saved_car["age"],
+                saved_car["team"],
+                saved_car["speed"],
+                saved_car["capacity"],
+                saved_car["crew"],
+                saved_car["reliability"]
+            )
+        garage.append(car)
