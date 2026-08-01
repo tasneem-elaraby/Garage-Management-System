@@ -289,3 +289,32 @@ def tune_up():
 
     Button(window, text="Search", command=find).pack()
     Button(window, text="Update", command=update).pack()
+
+# retire
+def retire():
+    window = Toplevel(login_window)
+    window.title("Retire")
+    cars_list = Listbox(window, width=40)
+    cars_list.pack()
+    for car in garage:
+        cars_list.insert(END, car.display_info())
+
+    Label(window, text="Car Number").pack()
+    number = Entry(window)
+    number.pack()
+    message = Label(window, text="")
+    message.pack()
+
+    def remove():
+        for car in garage:
+            if car.get_car_number() == number.get():
+                garage.remove(car)
+                save()
+                message["text"] = "Car retired"
+                return
+        message["text"] = "Car not found"
+
+    def confirmation():
+        message["text"] = "Are you sure?"
+        Button(window, text="Yes", command=remove).pack()
+    Button(window, text="Retire", command=confirmation).pack()
