@@ -318,3 +318,30 @@ def retire():
         message["text"] = "Are you sure?"
         Button(window, text="Yes", command=remove).pack()
     Button(window, text="Retire", command=confirmation).pack()
+# garage report
+def report():
+    window = Toplevel(login_window)
+    window.title("Garage Report")
+    total = len(garage)
+    total_score = 0
+    teams = {}
+    for car in garage:
+        total_score = total_score + car.calculate_score()
+        team_name = car.get_team()
+        # count how many cars are in each team
+        if team_name in teams:
+            teams[team_name] = teams[team_name] + 1
+        else:
+            teams[team_name] = 1
+
+    total_info = "total Cars: " + str(total)
+    Label(window, text=total_info).pack()
+    if total > 0:
+        average = total_score / total
+        average_info = "Average Score: " + str(average)
+        Label(window, text=average_info).pack()
+    Label(window, text="Cars Per Team").pack()
+    for team_name in teams:
+        number_of_cars = teams[team_name]
+        team_info = team_name + ": " + str(number_of_cars)
+        Label(window, text=team_info).pack()
