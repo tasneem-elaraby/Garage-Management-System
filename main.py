@@ -345,3 +345,35 @@ def report():
         number_of_cars = teams[team_name]
         team_info = team_name + ": " + str(number_of_cars)
         Label(window, text=team_info).pack()
+def login():
+    if username.get() == "Sheriff" and password.get() == "239TasTas":
+        home()
+    else:
+        message["text"] = "incorrect username /password"
+
+# home
+def home():
+    window = Toplevel(login_window)
+    window.title("Radiator Springs Garage")
+    Label(window,text="Welcome Sheriff").pack()
+    Button(window,text="Check in",command=check_in).pack()
+    Button(window,text="View garage",command=view_garage).pack()
+    Button(window,text="Search & tune up",command=tune_up).pack()
+    Button(window,text="retire",command=retire).pack()
+    Button(window,text="Garage report",command=report).pack()
+    Button(window,text="exit", command=window.destroy).pack()
+load()
+# log in Screen
+login_window = Tk()
+login_window.title("Login")
+Label(login_window, text="Login").pack()
+Label(login_window, text="Username").pack()
+username = Entry(login_window)
+username.pack()
+Label(login_window, text="password").pack()
+password = Entry(login_window)
+password.pack()
+message = Label(login_window, text="")
+message.pack()
+Button(login_window, text="Login", command=login).pack()
+login_window.mainloop()       
